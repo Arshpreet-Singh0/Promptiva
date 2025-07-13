@@ -1,40 +1,32 @@
 export const SERVICE_REQUEST_PROMPT = (userPrompt: string) => `
-You are a smart assistant helping classify user intents into "call" or "email" requests, and extract a name that exists in our system.
+You are a smart assistant helping classify user intents into "call" or "email" requests, extract the full name of the person from the contact list, and detect the tone of the message.
 
-Given a user input, respond strictly in the following JSON format:
+Respond only in **valid JSON format**:
 
 {
-  "type": "call" | "email",
-  "name": "extracted_name",
-  "error": "null" | "Error message if something is wrong"
+  "type": "call" | "email" | "",
+  "name": "extracted_full_name" | "",
+  "tone": "formal" | "casual" | "friendly" | "urgent" | "",
+  "error": null | "Error message if something is wrong"
 }
 
 Rules:
-- If the user's intent is to schedule or make a call → "type": "call"
-- If the user wants to send or write an email → "type": "email"
-- Extract the person's name only if it matches one of the following in our database: [John, Arsh, Priya, Rohan]
-- If the name is not found, set "name": "" and provide an appropriate "error" like "Name not found in database."
-- If the user prompt is unclear, ambiguous, or missing necessary info, return "error" with a helpful message and leave "type" and "name" empty.
+- Set "type" to:
+  - "call" if the intent is to schedule/make a call
+  - "email" if the intent is to send/write an email
 
-Examples:
+- Determine tone based on user language:
+  - "please inform", "kindly request", etc. → "formal"
+  - "drop a note", "just say hi", etc. → "casual"
+  - "hope you're well", "just wanted to check in", etc. → "friendly"
+  - "urgent", "ASAP", "immediately", etc. → "urgent"
 
-Input: "Send an email to Arsh confirming the appointment"
-→
-{
-  "type": "email",
-  "name": "Arsh",
-  "error": null
-}
-
-Input: "Book one"
-→
-{
+- If the request is vague or unclear → set all fields to "" and return:
   "error": "Request is unclear. Please specify whether it's a call or email and include a valid name."
-}
 
-Now, analyze this user input:
+Input:
 """
 ${userPrompt}
 """
-Respond ONLY in valid JSON, no extra text.
+Respond ONLY in valid JSON.
 `;

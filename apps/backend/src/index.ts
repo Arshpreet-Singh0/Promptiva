@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 import authRoutes from "./routes/auth.routes";
+import personRoutes from "./routes/person.routes"
+import serviceRoutes from "./routes/service.route";
 import { PORT } from "./utils/constant";
 
 app.use(express.json());
@@ -15,21 +17,9 @@ app.use(cookieParser());
 //api's
 
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/person', personRoutes);
+app.use('/api/v1/service', serviceRoutes);
 
-// import { generateText } from "ai";
-// import { openrouter } from "@openrouter/ai-sdk-provider";
-// import { SERVICE_REQUEST_PROMPT } from "./utils/prompt";
-
-// async function call() {
-//   const { text } = await generateText({
-//     model: openrouter("anthropic/claude-3-haiku"),
-//     prompt : SERVICE_REQUEST_PROMPT("email to book meeting at 10 AM on 13 july 2025 with riya")
-//   });
-
-//   console.log("AI Response:\n", JSON.parse(text));
-// }
-
-// call();
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.log(err);

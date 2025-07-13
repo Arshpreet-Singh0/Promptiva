@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.56.0",
+    "@aws-sdk/client-sqs": "^3.844.0",
     "@openrouter/ai-sdk-provider": "1.0.0-beta.1",
     "@repo/db": "workspace:*",
     "ai": "5.0.0-beta.12",
