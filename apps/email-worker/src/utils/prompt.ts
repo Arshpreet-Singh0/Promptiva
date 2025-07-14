@@ -7,20 +7,29 @@ export const GENERATE_EMAIL_CONTENT_PROMPT = ({
   name: string;
   details: string;
   tone?: string;
-  by ? : string
+  by?: string;
 }) => `
-You are a helpful assistant writing emails.
+You are an assistant that generates professional email content.
 
-Write a clear and polite email to **${name}** using the following details:
-"${details}"
+Your task:
+- Write a clear, friendly, and appropriately toned email to **${name}**
+- Use the following instruction/details: "${details}"
+- The tone should be: "${tone}"
+- Sender name: "${by}"
 
-Tone: ${tone}
+Only return a valid JSON object with the following structure — no backticks, no markdown, no extra text:
 
-Sent by : ${by}
-
-Respond ONLY in the following JSON format:
 {
-  "subject": "subject line here",
-  "body": "full email message here"
+  "subject": "Short and relevant subject line here",
+  "body": "Full polite email body content here, written in a ${tone} tone and signed off by ${by}."
 }
+
+Example Output:
+{
+  "subject": "Meeting Invitation for Project Review",
+  "body": "Dear ${name},\\n\\nI hope you're doing well. I'm reaching out to invite you to a project review meeting as discussed. Please let me know your availability.\\n\\nBest regards,\\n${by}"
+}
+
+Now generate the email based on the given input.
+Respond with valid JSON only.
 `;

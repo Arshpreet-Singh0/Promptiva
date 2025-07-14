@@ -16,6 +16,7 @@ export const processMessage = async (data: any) => {
       to: data.to,
       subject,
       body,
+      by : data.by
     });
   } else if (data.type === "call") {
     console.log("🔔 Simulating a call to", data.name);

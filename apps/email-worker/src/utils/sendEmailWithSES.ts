@@ -10,10 +10,12 @@ export const sendEmailWithSES = async ({
   to,
   subject,
   body,
+  by
 }: {
   to: string;
   subject: string;
   body: string;
+  by : string
 }) => {
   const params = {
     Destination: {
@@ -31,7 +33,7 @@ export const sendEmailWithSES = async ({
         Data: subject,
       },
     },
-    Source: process.env.SES_EMAIL_FROM!,
+    Source: `${by}@${process.env.SES_EMAIL_FROM!}`,
   };
 
   const command = new SendEmailCommand(params);
