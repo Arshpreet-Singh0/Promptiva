@@ -7,7 +7,11 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "db:generate" : "cd packages/db && npx prisma generate"
+    "db:generate" : "cd packages/db && npx prisma generate",
+    "backend:build" : "cd apps/backend && npm run build",
+    "backend:start" : "cd apps/backend && npm run start",
+    "email-worker:build" : "cd apps/email-worker && npm run build",
+    "email-worker:start" : "cd apps/email-worker && npm run start"
   },
   "devDependencies": {
     "prettier": "^3.6.2",

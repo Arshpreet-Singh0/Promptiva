@@ -10,13 +10,6 @@ import { axiosInstance } from "@/config/axios"
 import { toast } from "sonner"
 import { handleAxiosError } from "@/utils/handleAxiosError"
 
-interface Contact {
-  id: string
-  name: string
-  email?: string
-  phone?: string
-}
-
 export default function DashboardPage() {
   const [prompt, setPrompt] = useState("")
   const [communicationType] = useState<"email" | "call">("email");

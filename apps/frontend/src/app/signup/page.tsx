@@ -19,7 +19,6 @@ import { Loader2, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { handleAxiosError } from "@/utils/handleAxiosError";
 import { axiosInstance } from "@/config/axios";
-import { BACKEND_URL } from "@/config/constants";
 import { useAppDispatch } from "@/store/hooks";
 import { setUser } from "@/store/slices/authSlice";
 
