@@ -11,12 +11,21 @@ import { PORT } from "./utils/constant";
 
 
 //cors
-app.use(cors({
-    origin : process.env.ALLOWED_CLIENTS?.split(",").map((origin)=> origin.trim()) || ["http://localhost:3000"],
-    methods : ["GET", "POST", "PUT", "DELETE"],
-    credentials : true
-}));
 
+const allowedOrigins = process.env.ALLOWED_CLIENTS?.split(',') || [];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  })
+);
 //middleware's
 
 app.use(express.json());
