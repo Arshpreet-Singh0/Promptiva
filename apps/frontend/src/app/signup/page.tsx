@@ -20,6 +20,8 @@ import { toast } from "sonner";
 import { handleAxiosError } from "@/utils/handleAxiosError";
 import { axiosInstance } from "@/config/axios";
 import { BACKEND_URL } from "@/config/constants";
+import { useAppDispatch } from "@/store/hooks";
+import { setUser } from "@/store/slices/authSlice";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -30,6 +32,7 @@ export default function SignUpPage() {
     confirmPassword: "",
   });
   const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,6 +48,7 @@ export default function SignUpPage() {
 
       if (res?.data?.success) {
         toast.success(res?.data?.message || "Signup Successfull.");
+        dispatch(setUser(res?.data?.user));
         router.push("/getting-started");
       }
     } catch (error) {

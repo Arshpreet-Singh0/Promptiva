@@ -1,7 +1,9 @@
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Mail, Phone, Users, Zap, ArrowRight, Star, CheckCircle } from "lucide-react"
+import Options from "@/components/home/Options"
 
 export default function HomePage() {
   return (
@@ -24,16 +26,7 @@ export default function HomePage() {
             <span className="text-2xl font-bold text-gray-900 animate-slide-in-left">Promptiva</span>
           </div>
           <div className="space-x-4 animate-fade-in-delayed">
-            <Link href="/signin">
-              <Button variant="ghost" className="hover:scale-105 transition-transform duration-200">
-                Sign In
-              </Button>
-            </Link>
-            <Link href="/signup">
-              <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
-                Get Started
-              </Button>
-            </Link>
+              <Options />
           </div>
         </div>
       </header>

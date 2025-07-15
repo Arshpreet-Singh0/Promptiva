@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
-import { Zap, Users, Settings, Send, Loader2 } from "lucide-react"
+import { Zap, Users, Settings, Send, Loader2, LogOut } from "lucide-react"
 import { axiosInstance } from "@/config/axios"
 import { toast } from "sonner"
 import { handleAxiosError } from "@/utils/handleAxiosError"
@@ -18,9 +18,8 @@ interface Contact {
 }
 
 export default function DashboardPage() {
-  const [selectedContacts, setSelectedContacts] = useState<string[]>([])
   const [prompt, setPrompt] = useState("")
-  const [communicationType, setCommunicationType] = useState<"email" | "call">("email");
+  const [communicationType] = useState<"email" | "call">("email");
   const [loading, setLoading] = useState(false);
 
 
@@ -62,6 +61,10 @@ export default function DashboardPage() {
                 Profile
               </Button>
             </Link>
+            <Button variant="ghost" size="sm">
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
           </div>
         </div>
       </header>

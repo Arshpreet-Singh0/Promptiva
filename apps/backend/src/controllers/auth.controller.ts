@@ -5,6 +5,7 @@ import { NextFunction, Request, Response } from "express";
 import { loginSchema, signupSchema } from "../validations/authValidations";
 import { prisma } from "../config/prisma"
 import ExpressError from "../utils/errorHandeler";
+import { success } from "zod/v4";
 
 const generateRefreshToken = (id: string | number) => {
   return jwt.sign({ userId : id }, JWT_SECRET, { expiresIn: "1d" }); // Longer expiration
@@ -146,7 +147,7 @@ export const verifyUser = async (
     if (!user) {
         throw new ExpressError("User not found", 404);
     }
-    res.json(user);
+    res.json({user, success : true});
   } catch (error) {
     next(error);
   }
@@ -163,7 +164,7 @@ export const logout = async (
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       secure: process.env.NODE_ENV === "production",
     });
-    res.status(200).json({ message: "Logout successful" });
+    res.status(200).json({ message: "Logout successful" , success : true});
   } catch (error) {
     next(error);
   }

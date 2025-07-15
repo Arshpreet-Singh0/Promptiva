@@ -13,6 +13,8 @@ import { Loader2, Zap } from "lucide-react"
 import { toast } from "sonner"
 import { axiosInstance } from "@/config/axios"
 import { handleAxiosError } from "@/utils/handleAxiosError"
+import { useAppDispatch } from "@/store/hooks"
+import { setUser } from "@/store/slices/authSlice"
 
 export default function SignInPage() {
   const router = useRouter()
@@ -21,6 +23,7 @@ export default function SignInPage() {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault()
@@ -35,6 +38,7 @@ export default function SignInPage() {
 
         if(res?.data?.success){
             toast.success(res?.data?.message || "Signin Successfull.");
+            dispatch(setUser(res?.data?.user));
             router.push("/dashboard")
         }
     } catch (error) {
