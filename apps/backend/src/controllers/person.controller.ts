@@ -16,11 +16,11 @@ export const addPerson = async (
       throw new ExpressError("All fields are required", 400);
     }
 
-    await prisma.person.create({
-      data: { name, email, phone, userId },
+    const person = await prisma.person.create({
+      data: { name : name.trim(), email : email.trim(), phone : phone.trim(), userId },
     });
 
-    res.status(200).json({ message: "Person added successfully", success: true });
+    res.status(200).json({ message: "Person added successfully", success: true, person });
   } catch (error) {
     next(error);
   }
@@ -48,7 +48,7 @@ export const updatePerson = async (
 
     await prisma.person.update({
       where: { id: personId },
-      data: { name, email, phone },
+      data: { name : name.trim(), email : email.trim(), phone : phone.trim() },
     });
 
     res.status(200).json({ message: "Person updated successfully", success: true });
@@ -100,7 +100,7 @@ export const getAllPersons = async (
       where: { userId },
     });
 
-    res.status(200).json({ data: people, success: true });
+    res.status(200).json({ people, success: true });
   } catch (error) {
     next(error);
   }

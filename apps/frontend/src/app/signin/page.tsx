@@ -87,7 +87,7 @@ export default function SignInPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full flex justify-center gap-2" disabled={loading}>
               {loading && <Loader2 className="animate-spin" />}
               {loading ? "Signing In..." : "Sign In"}
             </Button>

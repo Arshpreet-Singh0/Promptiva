@@ -11,7 +11,7 @@ import { processMessage } from "./processor";
 const pollQueue = async () => {
   const command = new ReceiveMessageCommand({
     QueueUrl: process.env.SQS_QUEUE_URL!,
-    MaxNumberOfMessages: 1,
+    MaxNumberOfMessages: 10,
     WaitTimeSeconds: 10,
     VisibilityTimeout: 30,
   });
@@ -25,13 +25,13 @@ const pollQueue = async () => {
       return;
     }
 
-    for (const message of messages) {
+    const promises = messages.map(async (message) => {
       const body = JSON.parse(message.Body!);
 
       try {
         await processMessage(body);
 
-        // Delete message after success
+        // Delete message only if processing succeeded
         await sqsClient.send(
           new DeleteMessageCommand({
             QueueUrl: process.env.SQS_QUEUE_URL!,
@@ -39,11 +39,13 @@ const pollQueue = async () => {
           })
         );
 
-        console.log("✅ Message deleted.");
+        console.log("✅ Message processed and deleted.");
       } catch (err) {
         console.error("❌ Error processing message:", err);
       }
-    }
+    });
+
+    await Promise.allSettled(promises);
   } catch (err) {
     console.error("❌ SQS Polling failed:", err);
   }

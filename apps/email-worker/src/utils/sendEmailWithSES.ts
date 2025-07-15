@@ -17,9 +17,13 @@ export const sendEmailWithSES = async ({
   body: string;
   by : string
 }) => {
+  to = to.replace(/\s+/g, '').toLowerCase();
+  by = by.replace(/\s+/g, '').toLowerCase();
+  console.log(to, by);
+  
   const params = {
     Destination: {
-      ToAddresses: [to],
+      ToAddresses: [to.trim()],
     },
     Message: {
       Body: {
@@ -33,7 +37,7 @@ export const sendEmailWithSES = async ({
         Data: subject,
       },
     },
-    Source: `${by}@${process.env.SES_EMAIL_FROM!}`,
+    Source: `${by.trim()}@${process.env.SES_EMAIL_FROM?.trim()!}`,
   };
 
   const command = new SendEmailCommand(params);

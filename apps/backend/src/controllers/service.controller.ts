@@ -30,7 +30,7 @@ export const handleServicePrompt = async (
     
 
     if (aiResult.error) {
-      return res.status(400).json({ success: false, error: aiResult.error });
+      return res.status(400).json({ success: false, message: aiResult.error });
     }
 
     // 2. Search for person in DB
@@ -47,7 +47,7 @@ export const handleServicePrompt = async (
     if (!person) {
       return res.status(404).json({
         success: false,
-        error: `No contact named '${aiResult.name}' found in your saved people.`,
+        message: `No contact named '${aiResult.name}' found in your saved people.`,
       });
     }
 
