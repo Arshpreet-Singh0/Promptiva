@@ -26,7 +26,8 @@ jobs:
       - name: ⚡ Build the project
         run: |
           pnpm db:generate
-          pnpm run build
+          pnpm run backend:build
+          pnpm run email-worker:build
 
       - name: 🔑 Setup SSH connection
         run: |
@@ -50,7 +51,9 @@ jobs:
 
               pnpm db:generate
         
-              pnpm run build
+              pnpm run backend:build
+
+              pnpm run email-worker:build
         
               pm2 restart all
             EOF
