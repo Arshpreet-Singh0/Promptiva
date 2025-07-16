@@ -62,7 +62,9 @@ export default function GettingStartedPage() {
 
   const removeContact = async (id: string) => {
     try {
-      const res = await axiosInstance.delete(`/person/${id}`);
+      const res = await axiosInstance.delete(`/person/${id}`, {
+        withCredentials : true
+      });
 
       if (res?.data?.success) {
         toast.success(res?.data?.message);

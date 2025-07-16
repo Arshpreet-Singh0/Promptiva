@@ -49,7 +49,9 @@ export default function AddPeoplePage() {
 
     try {
       setLoading1(true);
-      const res = await axiosInstance.post("/person", currentContact);
+      const res = await axiosInstance.post("/person", currentContact, {
+        withCredentials : true
+      });
 
       if (res?.data?.success) {
         setContacts((prev) => [...prev, res?.data?.person]);
