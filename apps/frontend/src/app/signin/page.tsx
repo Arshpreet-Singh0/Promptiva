@@ -42,6 +42,8 @@ export default function SignInPage() {
             router.push("/dashboard")
         }
     } catch (error) {
+      console.log(error);
+      
         handleAxiosError(error);
     }finally{
         setLoading(false);

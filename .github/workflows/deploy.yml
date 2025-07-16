@@ -45,9 +45,9 @@ jobs:
         
               cd Promptiva
         
-              git pull origin prod
-
               git checkout prod
+
+              git pull origin prod
         
               pnpm install
 
