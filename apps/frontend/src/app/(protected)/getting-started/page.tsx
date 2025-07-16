@@ -47,7 +47,9 @@ export default function GettingStartedPage() {
 
     try {
       setLoading(true);
-      const res = await axiosInstance.post("/person", currentContact);
+      const res = await axiosInstance.post("/person", currentContact, {
+        withCredentials : true
+      });
 
       if (res?.data?.success) {
         setContacts((prev) => [...prev, res?.data?.person]);
@@ -62,7 +64,9 @@ export default function GettingStartedPage() {
 
   const removeContact = async (id: string) => {
     try {
-      const res = await axiosInstance.delete(`/person/${id}`);
+      const res = await axiosInstance.delete(`/person/${id}`, {
+        withCredentials : true
+      });
 
       if (res?.data?.success) {
         toast.success(res?.data?.message);

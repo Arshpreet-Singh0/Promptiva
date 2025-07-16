@@ -43,7 +43,9 @@ export default function SignUpPage() {
     setLoading(true);
 
     try {
-      const res = await axiosInstance.post("/auth/register", formData);
+      const res = await axiosInstance.post("/auth/register", formData, {
+        withCredentials : true
+      });
 
       if (res?.data?.success) {
         toast.success(res?.data?.message || "Signup Successfull.");
