@@ -2,9 +2,9 @@
 import { SendMessageCommand } from "@aws-sdk/client-sqs";
 import { sqsClient } from "../config/sqsClient";
 
-export const sendToSqs = async (message: any) => {
+export const sendToSqs = async (message: any, QueueUrl:string) => {
   const params = {
-    QueueUrl: process.env.SQS_QUEUE_URL!,
+    QueueUrl,
     MessageBody: JSON.stringify(message),
   };
 
@@ -13,6 +13,5 @@ export const sendToSqs = async (message: any) => {
     await sqsClient.send(command);
   } catch (error) {
     console.log(error);
-    
   }
 };
