@@ -20,8 +20,8 @@ export default function DashboardPage() {
     try {
         setLoading(true);
         const res = await axiosInstance.post('/service/parse', {prompt}, {
-          withCredentials : true
-        });
+        withCredentials : true
+      });
 
         if(res?.data?.success){
             toast.success(res.data?.message);

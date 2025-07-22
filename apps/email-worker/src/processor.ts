@@ -1,5 +1,6 @@
 import { sendEmailWithSES } from "./utils/sendEmailWithSES";
 import { generateEmailContent } from "./utils/generateEmailWithAI";
+import { prisma } from "./config/prisma";
 
 export const processMessage = async (data: any) => {
   console.log("Processing message:", data);
@@ -9,16 +10,33 @@ export const processMessage = async (data: any) => {
       name: data.name,
       details: data.prompt,
       tone: data.tone,
-      by : data.by
+      by: data.by,
     });
 
+    // Send the email
     await sendEmailWithSES({
       to: data.to,
       subject,
       body,
-      by : data.by
+      by: data.by,
     });
+
+    // Store the generated email body as an AI message in DB
+    console.log(data);
+    
+    if (data.sessionId) {
+      console.log("saving email");
+      
+      await prisma.message.create({
+        data: {
+          sessionId: data.sessionId,
+          sender: "AI",
+          content: `✉️ Subject: ${subject}\n\n${body}`,
+        },
+      });
+    }
   } else if (data.type === "call") {
     console.log("🔔 Simulating a call to", data.name);
+
   }
 };

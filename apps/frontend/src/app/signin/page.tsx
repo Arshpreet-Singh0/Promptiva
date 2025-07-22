@@ -34,9 +34,9 @@ export default function SignInPage() {
     setLoading(true);
 
     try {
-        const res = await axiosInstance.post('/auth/login', formData, {
-          withCredentials : true
-        });
+        const res = await axiosInstance.post('/auth/login', formData,{
+        withCredentials : true
+      });
 
         if(res?.data?.success){
             toast.success(res?.data?.message || "Signin Successfull.");

@@ -19,7 +19,8 @@ export const sendEmailWithSES = async ({
 }) => {
   to = to.replace(/\s+/g, '').toLowerCase();
   by = by.replace(/\s+/g, '').toLowerCase();
-  console.log(to, by);
+  
+  
   
   const params = {
     Destination: {
