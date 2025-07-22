@@ -8,6 +8,8 @@ const app = express();
 import authRoutes from "./routes/auth.routes";
 import personRoutes from "./routes/person.routes"
 import serviceRoutes from "./routes/service.route";
+import historyRoutes from "./routes/history.route";
+
 import { PORT } from "./utils/constant";
 
 
@@ -28,6 +30,7 @@ app.use(cookieParser());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/person', personRoutes);
 app.use('/api/v1/service', serviceRoutes);
+app.use('/api/v1/history', historyRoutes);
 
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

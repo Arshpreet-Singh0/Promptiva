@@ -22,7 +22,11 @@ export const processMessage = async (data: any) => {
     });
 
     // Store the generated email body as an AI message in DB
+    console.log(data);
+    
     if (data.sessionId) {
+      console.log("saving email");
+      
       await prisma.message.create({
         data: {
           sessionId: data.sessionId,

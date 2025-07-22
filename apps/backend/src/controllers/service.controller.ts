@@ -107,7 +107,7 @@ export const handleServicePrompt = async (
       data: {
         sessionId: session.id,
         sender: "AI",
-        content: `Classified as ${aiResult.type} for ${person.name} with tone "${aiResult.tone}"`,
+        content: `Classified as ${aiResult.type} for ${person.name} with tone ${aiResult.tone}`,
       },
     });
 
