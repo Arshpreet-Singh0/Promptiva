@@ -31,7 +31,7 @@ export const processMessage = async (data: any) => {
         data: {
           sessionId: data.sessionId,
           sender: "AI",
-          content: `✉️ Subject: ${subject}\n\n${body}`,
+          content: `Subject: ${subject}\n\n${body}`,
         },
       });
     }

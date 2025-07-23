@@ -2,7 +2,7 @@
 
 import { axiosInstance } from "@/config/axios";
 import { useAppDispatch } from "@/store/hooks";
-import { clearUser, setUser } from "@/store/slices/authSlice";
+import { clearUser, setLoading, setUser } from "@/store/slices/authSlice";
 import { useEffect } from "react";
 
 const VerifyUser = () => {
@@ -10,6 +10,7 @@ const VerifyUser = () => {
 
   useEffect(() => {
     const verify = async () => {
+      dispatch(setLoading(true));
       try {
         const res = await axiosInstance.get("/auth/verify");
 
@@ -20,6 +21,9 @@ const VerifyUser = () => {
         }
       } catch {
         dispatch(clearUser());
+      }
+      finally{
+        dispatch(setLoading(false));
       }
     };
 
